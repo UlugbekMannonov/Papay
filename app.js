@@ -17,7 +17,8 @@ app.set("view engine", "ejs");
 
 
 // 4. Routing code
-app.use("/", router);
+// app.use("/resto", router_bssr);  //Ananaviy
+app.use("/", router);            // rest API React
 
 
 module.exports = app;
