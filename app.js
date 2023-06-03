@@ -2,6 +2,7 @@ console.log("Web Serverni Boshlash");
 const express = require("express");
 const app = express();
 const router = require("./router");
+const router_bssr = require("./router_bssr");
 
 
 // 1. Kirish codelari
@@ -17,7 +18,7 @@ app.set("view engine", "ejs");
 
 
 // 4. Routing code
-// app.use("/resto", router_bssr);  //Ananaviy
+app.use("/resto", router_bssr);  //Ananaviy
 app.use("/", router);            // rest API React
 
 
