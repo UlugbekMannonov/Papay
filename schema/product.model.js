@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { stringify } = require("querystring");
-const { product_collection_enums, product_size_enums} = require("../lib/config");
+const { product_collection_enums, product_status_enums, product_size_enums, product_volume_enums} = require("../lib/config");
 const Schema = mongoose.Schema;
 
 
