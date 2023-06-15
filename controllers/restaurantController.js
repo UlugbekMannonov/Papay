@@ -41,7 +41,7 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 
 restaurantController.signupProccess = async (req, res) => {
   try {
-    console.log("POST: cont/signup");
+    console.log("POST: cont/signupProccess");
     const data = req.body;
     (member = new Member()), (new_member = await member.signupData(data));
 
@@ -49,7 +49,7 @@ restaurantController.signupProccess = async (req, res) => {
     res.redirect("/resto/products/menu");
     // SESSION AUTHENTATICON
   } catch (err) {
-    console.log(`ERROR, cont/signup, ${err.message}`);
+    console.log(`ERROR, cont/signupProccess, ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
@@ -66,17 +66,19 @@ restaurantController.getloginMyRestaurant = async (req, res) => {
 
 restaurantController.loginProccess = async (req, res) => {
   try {
-    console.log("POST: cont/login");
+    console.log("POST: cont/loginProccess");
     const data = req.body,
       member = new Member(),
       result = await member.loginData(data);
 
     req.session.member = result;
     req.session.save(function () {
-      res.redirect("/resto/products/menu");
+      result.mb_type === 'ADMIN' 
+      ? res.redirect("/resto/all-restaurant") 
+      : res.redirect("/resto/products/menu");
     });
   } catch (err) {
-    console.log(`ERROR, cont/login, ${err.message}`);
+    console.log(`ERROR, cont/loginProccess, ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
