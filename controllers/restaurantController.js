@@ -1,5 +1,7 @@
 const Member = require("../models/Member");
 const Product = require("../models/Product");
+const assert = require("assert");
+const Definer = require("../lib/mistake");
 
 let restaurantController = module.exports;
 
@@ -42,10 +44,18 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 restaurantController.signupProccess = async (req, res) => {
   try {
     console.log("POST: cont/signupProccess");
-    const data = req.body;
-    (member = new Member()), (new_member = await member.signupData(data));
+    assert(req.file, Definer.general_err3);
 
-    req.session.member = new_member;
+    let new_member = req.body;
+    new_member.mb_type = 'RESTAURANT';
+    new_member.mb_image = req.file.path;
+
+    const member = new Member();
+    const result = await member.signupData(new_member);
+    assert(result, Definer.general_err1);
+
+
+    req.session.member = result;
     res.redirect("/resto/products/menu");
     // SESSION AUTHENTATICON
   } catch (err) {
