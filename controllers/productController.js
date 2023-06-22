@@ -30,11 +30,11 @@ productController.addNewProduct = async (req, res) => {
 
         const html = `<script>
                         alert('new product added successfully');
-                        window.location.replace('/resto/products/menu);
+                        window.location.replace('/resto/products/menu');
                     </script>`;
         res.end(html);
 
-    } catch (err) {
+    }catch(err) {
         console.log(`ERROR, cont/addNewProduct, ${err.message}`);
     }
 };
