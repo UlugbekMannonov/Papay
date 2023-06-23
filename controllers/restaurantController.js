@@ -95,7 +95,7 @@ restaurantController.loginProccess = async (req, res) => {
 
 restaurantController.logout = (req, res) => {
   try {
-    console.log("GET cont.logout");
+    console.log("GET cont/logout");
   req.session.destroy(function() {
     res.redirect("/resto");
   });
@@ -109,7 +109,7 @@ restaurantController.validateAuthRestaurant = (req, res, next) => {
   if (req.session?.member?.mb_type === "RESTAURANT") {
     req.member = req.session.member;
     next();
-  } else
+  } else 
     res.json({
       state: "fail",
       message: "only authenticated members with restaurant type",
@@ -123,3 +123,42 @@ restaurantController.checkSessions = (req, res) => {
     res.json({ state: "fail", message: "You are not authenticated" });
   }
 };
+
+
+restaurantController.validateAdmin = (req, res, next) => {
+  if (req.session?.member?.mb_type === "ADMIN") {
+    req.member = req.session.member;
+    next();
+  } else {
+    const html = `<script>
+          alert('Admin page: Permission denied!');
+          window.location.replace('/resto');
+        </script>`;
+    res.end(html);  
+  }
+};
+
+
+
+
+restaurantController.getAllRestaurants = (req, res) => {
+  try{
+    console.log("GET cont/getAllRestaurants");
+
+
+    // todo: hamma restaurantlarni dbdan chaqiramiz
+
+    res.render("all-restaurants")
+
+
+
+
+
+
+
+  } catch(err) {
+    console.log(`ERROR, cont/getAllRestaurants, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+
+  }
+}
