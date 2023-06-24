@@ -10,7 +10,7 @@ class Restaurant {
     this.memberModel = MemberModel;
   }
 
-
+1
 
   async getAllRestaurantsData() {
     try {
