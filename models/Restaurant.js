@@ -1,30 +1,40 @@
-const { assert } = require("console");
-const { shapeIntoMongooseObjectId } = require("../lib/config");
-const Definer = require("../lib/mistake");
+const assert = require("assert");
 const MemberModel = require("../schema/member.model");
+const Definer = require("../lib/mistake");
+const { shapeIntoMongooseObjectId } = require("../lib/config");
+
+
 
 class Restaurant {
-    constructor() {
+  constructor() {
+    this.memberModel = MemberModel;
+  }
 
-        this.memberModel = MemberModel;
-    }
-    async getAllRestaurantsData() {
-        try {
-            const result = await this.memberModel.find({
-                mb_type: 'RESTAURANT'
-            }).exec();
 
-            assert(result, Definer.general_err1);
-            return result;
 
-        }catch(err) {
-            throw err;
-        }
-    }
-
-      async updateRestaurantByAdminData(update_data) {
+  async getAllRestaurantsData() {
     try {
-      const id = shapeIntoMongosObjectId(update_data?.id);
+      let result = await this.memberModel
+        .find({
+          mb_type: "RESTAURANT",
+        })
+        .exec();
+
+      assert(result, Definer.general_err1);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+  catch(err) {
+    throw err;
+  }
+
+
+
+  async updateRestaurantByAdminData(update_data) {
+    try {
+      const id = shapeIntoMongooseObjectId(update_data?.id);
       const result = await this.memberModel
         .findByIdAndUpdate({ _id: id }, update_data, {
           runValidators: true,
@@ -40,11 +50,6 @@ class Restaurant {
     }
   }
 }
-
-
-
-
-
 
 
 
