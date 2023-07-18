@@ -3,6 +3,7 @@ const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require('bcrypt');
 const { shapeIntoMongooseObjectId } = require("../lib/config.js");
+const View = require("./View.js");
 
 class Member {
     constructor() {
@@ -60,6 +61,7 @@ class Member {
     
           if (member) {
             // condition if not seen before
+            await this.viewChosenItemByMember(member, id, "member");
           }
     
           const result = await this.memberModel
@@ -75,6 +77,32 @@ class Member {
           throw err;
         }
     }
+
+    async viewChosenItemByMember(member, view_ref_id, group_type) {
+        try {
+          view_ref_id = shapeIntoMongooseObjectId(view_ref_id);
+          const mb_id = shapeIntoMongooseObjectId(member._id);
+    
+          const view = new View(mb_id);
+          
+          // validatioon needed  
+          const isValid = await view.validateChosenTarget(view_ref_id, group_type);
+          assert.ok(isValid, Definer.general_err2);
+    
+          // logged user has seen target before
+          const doesExist = await view.checkViewExistence(view_ref_id);
+          console.log("doesExist:::", doesExist);
+    
+          if (!doesExist) {
+            const result = await view.insertMemberView(view_ref_id, group_type);
+            assert.ok(result, Definer.general_err1);
+          }
+    
+          return true;
+        } catch (err) {
+          throw err;
+        }
+      }
 };
 
 module.exports = Member;
