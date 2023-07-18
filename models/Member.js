@@ -2,6 +2,7 @@ const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require('bcrypt');
+const { shapeIntoMongooseObjectId } = require("../lib/config.js");
 
 class Member {
     constructor() {
@@ -49,6 +50,29 @@ class Member {
 
         } catch(err) {
             throw err;
+        }
+    }
+
+    async getChosenMemberData(member, id) {
+        try {
+          id = shapeIntoMongooseObjectId(id);
+          console.log("member:::", member);
+    
+          if (member) {
+            // condition if not seen before
+          }
+    
+          const result = await this.memberModel
+            .aggregate([
+              { $match: { _id: id, mb_status: "ACTIVE" } },
+              { $unset: "mb_password" },
+            ])
+            .exec();
+    
+          assert.ok(result, Definer.general_err2);
+          return result[0];
+        } catch (err) {
+          throw err;
         }
     }
 };
