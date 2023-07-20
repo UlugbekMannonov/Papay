@@ -27,7 +27,7 @@ class View {
           result = await this.productModel
             .findById({
               _id: view_ref_id,
-              mb_status: "PROCESS",
+              product_status: "PROCESS",
             })
             .exec();
           break;
