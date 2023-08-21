@@ -120,7 +120,7 @@
           </div>
 
           <p class="thumbnail_desc">
-            Oshxona rasmingizni bu yerga yuklang.<br>Mushim ko'rsatmalar: .jpg, .jpeg, yoki .png. <br>rasmda matn yo'q bo'lishi darkor! 
+            Oshxona rasmingizni bu yerga yuklang.<br>Mushim ko'rsatmalar: .jpg, .jpeg, .png yoki .HEIC. <br>rasmda matn yo'q bo'lishi darkor! 
           </p>
         </div>
       </div>
@@ -141,9 +141,9 @@
       if(window.FileReader) {
         const uploading_file = $(this)[0].files[0];
         const fileType = uploading_file['type'];
-        const validateImageType = ['image/jpg', 'image/jpeg', 'image/png'];
+        const validateImageType = ['image/jpg', 'image/jpeg', 'image/png', 'image/HEIC'];
         if(!validateImageType.includes(fileType)) {
-          alert('Iltimos ruhsat etilgan formatdagi rasmlarni yuklang: jpg, jpeg va png!');
+          alert('Iltimos ruhsat etilgan formatdagi rasmlarni yuklang: jpg, jpeg, png va HEIC!');
       } else {
         if(uploading_file) {
           console.log(URL.createObjectURL(uploading_file)); 

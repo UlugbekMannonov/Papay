@@ -32,7 +32,7 @@ router.post(
 );
 
 router.post(
-  "member/update",
+  "/member/update",
   memberController.retrieveAuthMember,
   uploader_member.single("mb_image"),
   memberController.updateMember

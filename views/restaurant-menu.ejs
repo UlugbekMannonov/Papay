@@ -236,10 +236,10 @@
             const image_class_name = input.className;
             const file = $(`.${image_class_name}`).get(0).files[0],
               fileType = file['type'],
-              validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+              validImageTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/HEIC'];
 
               if(!validImageTypes.includes(fileType)){
-                  alert('Iltimos ruhsat etilgan  formatdagi rasmlarni yuklang!  (jpg, jpeg, png)')
+                  alert('Iltimos ruhsat etilgan  formatdagi rasmlarni yuklang!  (jpg, jpeg, png, HEIC)')
               } else {
                 if(file) {
                   let reader = new FileReader();
