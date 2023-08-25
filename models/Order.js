@@ -32,9 +32,9 @@ class Order {
       );
       console.log("order_id::", order_id);
 
-    await this.recordOrderItemsData(order_id, data);
+      await this.recordOrderItemsData(order_id, data);
 
-    return order_id;
+      return order_id;
     } catch (err) {
       throw err;
     }

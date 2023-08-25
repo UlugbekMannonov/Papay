@@ -166,7 +166,7 @@ class Member {
 
   async updateMemberData(id, data, image) {
     try {
-      const mb_id = shapeIntoMongosObjectId(id);
+      const mb_id = shapeIntoMongooseObjectId(id);
       let params = {
         mb_nick: data.mb_nick,
         mb_phone: data.mb_phone,

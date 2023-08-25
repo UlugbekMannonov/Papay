@@ -90,7 +90,7 @@ class Restaurant {
   catch(err) {
     throw err;
   }
-
+  
 
 
   async updateRestaurantByAdminData(update_data) {
